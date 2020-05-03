@@ -2,7 +2,7 @@
 <Configuration>
     <Appenders>
         <Console name="HW4TestConsoleAppender" target="SYSTEM_OUT">
-            <PatternLayout pattern="%highlight{[%d{HH:mm:ss.SSS}] | %p | %t | %c{1} | %m%n}"/>
+            <PatternLayout pattern="%highlight{[%d{HH:mm:ss.SSS}] | %p | %t | %c{1} | %m%n}" disableAnsi="false"/>
         </Console>
         <File name="HW4TestFileAppender" fileName="HW4Test.log">
             <PatternLayout pattern="%d %p %c{1.} [%t] %m%n"/>
