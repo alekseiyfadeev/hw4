@@ -4,9 +4,9 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.nio.channels.FileLockInterruptionException;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 enum WebDriverName {
     CHROME, FIREFOX
@@ -18,7 +18,7 @@ public class WebDriverFactory {
 
     public static WebDriver createNewDriver(String webDriverName) {
 
-        return createNewDriver(webDriverName, null);
+        return createNewDriver(webDriverName, new MutableCapabilities());
     }
 
     public static WebDriver createNewDriver(String webDriverName,
@@ -42,22 +42,14 @@ public class WebDriverFactory {
         switch (value) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
-                if (options!=null) {
-                    driver = new ChromeDriver(options);
-                }
-                else {
-                    driver = new ChromeDriver();
-                }
+                ChromeOptions chromeOptions = new ChromeOptions().merge(options);
+                driver = new ChromeDriver(chromeOptions);
                 break;
 
             case FIREFOX:
                 WebDriverManager.firefoxdriver().setup();
-                if (options!=null) {
-                    driver = new FirefoxDriver(options);
-                }
-                else {
-                    driver = new FirefoxDriver();
-                }
+                FirefoxOptions firefoxOptions = new FirefoxOptions().merge(options);
+                driver = new FirefoxDriver(firefoxOptions);
                 break;
         }
         logger.info(driver.toString() + " started");
